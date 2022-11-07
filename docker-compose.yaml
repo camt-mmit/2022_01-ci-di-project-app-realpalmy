@@ -1,0 +1,28 @@
+services:
+  app:
+    container_name: app
+    image: palmysatt/my-app
+    networks:
+      - internal
+    ports:
+      - "8080:80"
+      - "8081:81"
+      - "8082:82"
+  api-01:
+    container_name: api-01
+    image: mrpachara/api-01-fpm:latest
+    environment:
+      - ACCESS_TOKEN=1234
+    networks:
+      - internal
+  api-02:
+    container_name: api-02
+    image: palmysatt/api-02
+    environment:
+      - PORT=8082
+      - ACCESS_TOKEN=1234
+    networks:
+      - internal
+networks:
+  internal:
+    driver: bridge
